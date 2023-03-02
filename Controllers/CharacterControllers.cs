@@ -12,18 +12,23 @@ namespace dotnet.Controllers{
     public class CharacterControllers : ControllerBase{
         private static List<Character> characters = new List<Character>{
             new Character(),
-            new Character{Name = "Sam"}
+            new Character{Id = 1, Name = "Mie"},
+            new Character{Id = 2, Name = "Phuc"}
         };
 
-        [HttpGet]
-        [Route("GetAll")]
+        // private static List<Character> characters2 = new List<Character>{
+        //     new Character(),
+        //     new Character{Id = 2, Name = "Phuc"}
+        // };
+
+        [HttpGet("GetAll")]
         public ActionResult<List<Character>> Get(){
             return Ok(characters);
         }
 
-        [HttpGet]
-        public ActionResult<Character> GetSingle(){
-            return Ok(characters[0]);
+        [HttpGet("{id}")]
+        public ActionResult<Character> GetSingle(int id){
+            return Ok(characters.FirstOrDefault(c => c.Id == id));
         }
     }
 }
