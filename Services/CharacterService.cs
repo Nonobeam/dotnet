@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet.Dtos.Character;
 
 namespace dotnet.Services.CharacterService{
 
@@ -12,7 +13,7 @@ namespace dotnet.Services.CharacterService{
             new Character { Id = 1, Name = "Sam" }
         };
 
-        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter)
+        public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter)
         {
             var ServiceResponse = new ServiceResponse<List<Character>>();
             characters.Add(newCharacter);
@@ -20,17 +21,17 @@ namespace dotnet.Services.CharacterService{
             return ServiceResponse;
         }
 
-        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
-            return new ServiceReponse<List<Character>> { Data = characters };
+            return new ServiceResponse<List<Character>> { Data = characters };
         }
 
-        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
+        public async Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id)
         {
-            var ServiceReponse = new ServiceResponse<Character>();
-            var character = characters.FirstOrDefault(c => char.Id == id);
-            ServiceReponse.Data = character;
-            return ServiceReponse;
+            var serviceReponse = new ServiceResponse<Character>();
+            var character = characters.FirstOrDefault(c => c.Id == id);
+            serviceReponse.Data = character;
+            return serviceReponse;
         }
     }
 }
